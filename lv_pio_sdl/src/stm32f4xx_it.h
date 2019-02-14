@@ -35,6 +35,8 @@
   ******************************************************************************
   */
 
+#if BUILD_ENV_NAME == stm32f429_disco
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F4xx_IT_H
 #define __STM32F4xx_IT_H
@@ -66,3 +68,5 @@ void SysTick_Handler(void);
 #endif /* __STM32F4xx_IT_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif

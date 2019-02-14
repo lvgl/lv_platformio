@@ -43,6 +43,8 @@
 *****************************************************************************
 */
 
+#if BUILD_ENV_NAME == stm32f429_disco
+
 /* Includes */
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -202,3 +204,5 @@ int _execve(char *name, char **argv, char **env)
 	errno = ENOMEM;
 	return -1;
 }
+
+#endif

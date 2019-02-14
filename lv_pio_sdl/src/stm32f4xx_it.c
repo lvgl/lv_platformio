@@ -8,6 +8,8 @@
   ******************************************************************************
 */
 
+#if BUILD_ENV_NAME == stm32f429_disco
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx.h"
@@ -45,3 +47,5 @@ void SysTick_Handler(void)
 	osSystickHandler();
 #endif
 }
+
+#endif
