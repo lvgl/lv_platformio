@@ -1,13 +1,18 @@
 
 #include <stdlib.h>
+
+#include <lvgl.h>
+
+#if BUILD_ENV_NAME == native
 #include <unistd.h>
 #define SDL_MAIN_HANDLED        /*To fix SDL's "undefined reference to WinMain" issue*/
 #include <SDL2/SDL.h>
-#include <lvgl.h>
 #include "monitor.h"
 #include "mouse.h"
 #include "mousewheel.h"
 #include "keyboard.h"
+#endif
+
 #include "demo.h"
 
 
@@ -15,8 +20,7 @@ static void hal_init(void);
 static int tick_thread(void * data);
 int main(void)
 {
-
-    printf("hello\n");
+    printf("Start\n");
     lv_init();
     hal_init();
 
@@ -33,6 +37,7 @@ int main(void)
  */
 static void hal_init(void)
 {
+#if BUILD_ENV_NAME == native
     /* Add a display
      * Use the 'monitor' driver which creates window on PC's monitor to simulate a display*/
     monitor_init();
@@ -56,6 +61,10 @@ static void hal_init(void)
      * You have to call 'lv_tick_inc()' in periodically to inform LittelvGL about how much time were elapsed
      * Create an SDL thread to do this*/
     SDL_CreateThread(tick_thread, "tick", NULL);
+#elif BUILD_ENV_NAME == stm32
+
+
+#endif
 }
 
 /**
