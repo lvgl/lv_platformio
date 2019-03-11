@@ -1,4 +1,4 @@
-# Run LittelvGL in on PC using PlatfomIO
+# Run LittlevGL in on PC using PlatfomIO
 
 This repository contains a PlatformIO project to test LittelvGL on your PC. 
 
