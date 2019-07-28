@@ -24,6 +24,7 @@ extern "C" {
 /*********************
  *      DEFINES
  *********************/
+#define LV_USE_DEMO 1
 #define LV_DEMO_WALLPAPER  1
 
 /**********************
