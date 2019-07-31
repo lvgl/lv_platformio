@@ -1,27 +1,47 @@
-# Run LittlevGL in on PC using PlatfomIO
+# Run LittlevGL via PlatfomIO
 
-This repository contains a PlatformIO project to test LittelvGL on your PC. 
+This demo should help you to organize your project with awesome PlatfomIO IDE.
 
+1. It automates installing everything - just open folder with this project in
+   [vscode](https://code.visualstudio.com/), and agree to install all it offers.
+2. It contains working LittlevGL demo, runnable on PC (via SDL drivers).
+3. It has example, how to make multiple build targets. For example:
+   - `native` to quickly prototype interfaces on PC
+   - other, to build firmware for bare metal
 
-### Install SDL
+## How to install & use demo
 
-The [SDL library](https://www.libsdl.org/) need to installed to run the project. You will find a step-by-step GUI about the installation [here](https://docs.littlevgl.com/#PC-simulator)
-(It's super easy on Linux but sometimes tricky on Windows and OSX.)
+### Install vscode
 
-
-### Open the project
-
-I assume that you already have a working PlatformIO environment with Visual Studio Code.
-
-1. Clone this repo with `git clone https://github.com/littlevgl/pc_simulator_sdl_platformio.git` anywhere you want or [download it as zip from GitHub](https://github.com/littlevgl/pc_simulator_sdl_platformio/archive/master.zip).
-2. In Visual Studio Code click **File/Add folder to workspace** and browse the **pc_simulator_sdl_platformio** folder in the cloned or downloaded project
-
-
-### Build and run
-
-3. Click the pipe icon on the left bottom corner to build the project. 
-4. Run the compiled file from the terminal of Visual Studio Code: `./.pio/build/native/program `
+https://code.visualstudio.com/ - follow instructions there, if you don't have
+vscode yet.
 
 
+### Install SDL drivers
+
+This drivers required if you plan to use PC builds and run code without
+hardware.
+
+In linux just run:
+
+```sh
+sudo apt-get install libsdl2-dev
+```
+
+Or read about other possibilities at https://docs.littlevgl.com/en/html/get-started/pc-simulator.html#install-sdl-2.
 
 
+### Build & run demo
+
+1. Clone this repo or download as zip.
+2. In vsccode, open folder via `File` -> `Open Folder...` menu.
+   - If you do it first time - agree, when it suggests to install PlatformIO
+     plugin, and whait when PlatformIO then install build tools and package
+     dependencies.
+3. Build via `Terminal` -> `Run Build Task...` -> `PlatformIO: Build`
+
+Then you may run demo as
+
+```sh
+./.pio/build/native/program
+```
