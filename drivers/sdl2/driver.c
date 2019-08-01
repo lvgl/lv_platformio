@@ -1,10 +1,10 @@
 #include <unistd.h>
 #define SDL_MAIN_HANDLED        /*To fix SDL's "undefined reference to WinMain" issue*/
 #include <SDL2/SDL.h>
-#include "monitor.h"
-#include "mouse.h"
-#include "mousewheel.h"
-#include "keyboard.h"
+#include "display/monitor.h"
+#include "indev/mouse.h"
+#include "indev/mousewheel.h"
+#include "indev/keyboard.h"
 
 
 /**
