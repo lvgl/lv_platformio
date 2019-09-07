@@ -18,7 +18,7 @@
 #endif
 #include "stm32f4xx_it.h"
 
-#include "lvgl/lv_hal/lv_hal_tick.h"
+#include "lvgl.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/

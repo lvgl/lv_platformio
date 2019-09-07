@@ -63,8 +63,6 @@
   * @{
   */
 
-#if BUILD_ENV_NAME == stm32f429_disco
-
 #include "stm32f4xx.h"
 
 #if !defined  (HSE_VALUE) 
@@ -129,20 +127,6 @@ const uint8_t APBPrescTable[8]  = {0, 0, 0, 0, 1, 2, 3, 4};
 /**
   * @}
   */
-#if BUILD_ENV_NAME == stm32f429_disco
-
-/** 
-#if BUILD_ENV_NAME == stm32f429_discoTM32F4xx_System_Private_FunctionPrototypes
-  * 
-#if BUILD_ENV_NAME == stm32f429_disco
-  */
-#if BUILD_ENV_NAME == stm32f429_disco
-
-/**
-  * 
-#if BUILD_ENV_NAME == stm32f429_disco
-  */
-#if BUILD_ENV_NAME == stm32f429_disco
 
 /** @addtogroup STM32F4xx_System_Private_Functions
   * @{
@@ -284,5 +268,3 @@ void SystemCoreClockUpdate(void)
   * @}
   */    
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
-#endif

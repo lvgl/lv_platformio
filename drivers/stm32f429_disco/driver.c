@@ -1,8 +1,8 @@
 
 #include "stm32f4xx.h"
-#include "stm32f429_disco/stm32f429i_discovery.h"
-#include "stm32f429_disco/tft/tft.h"
-#include "stm32f429_disco/touchpad/touchpad.h"
+#include "stm32f429i_discovery.h"
+#include "tft/tft.h"
+#include "touchpad/touchpad.h"
 
 
 /**
