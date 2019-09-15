@@ -30,6 +30,9 @@ sudo apt-get install libsdl2-dev
 
 Or read about other possibilities at https://docs.littlevgl.com/en/html/get-started/pc-simulator.html#install-sdl-2.
 
+**Important!** Building projects with SDL2 drivers on Windows is not ready. But
+you still can build MCU targets. If anyone interested to improve - PR welcome.
+
 
 ### Install flasher drivers (optional)
 
