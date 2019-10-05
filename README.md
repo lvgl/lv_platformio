@@ -9,9 +9,15 @@ This demo should help you to organize your project with awesome PlatformIO IDE.
    - `native` to quickly prototype interfaces on PC
    - other, to build firmware for bare metal
 
+
 ## How to install & use demo
 
-### Install vscode
+**Important!** `native` build (emulator with SDL2 drivers) was tested in
+linux only! But you still can build MCU targets. If anyone interested to
+improve other OS support (Windows, macOS) - PR welcome.
+
+
+### Install Visual Studio Code
 
 https://code.visualstudio.com/ - follow instructions there, if you don't have
 vscode yet.
@@ -19,19 +25,14 @@ vscode yet.
 
 ### Install SDL drivers
 
-This drivers required if you plan to use PC builds and run code without
-hardware (for example, to quickly prototype GUI look).
-
 In linux just run:
 
 ```sh
 sudo apt-get install libsdl2-dev
 ```
 
-Or read about other possibilities at https://docs.littlevgl.com/en/html/get-started/pc-simulator.html#install-sdl-2.
-
-**Important!** Building projects with SDL2 drivers on Windows is not ready. But
-you still can build MCU targets. If anyone interested to improve - PR welcome.
+Note, this demo still needs care for easy install/build SDL drivers in other
+operating systems.
 
 
 ### Install flasher drivers (optional)
@@ -40,7 +41,7 @@ If you plan to upload firmware & debug hardware, read notes in PlatformIO
 [install docs](http://docs.platformio.org/en/latest/installation.html#troubleshooting).
 
 
-### Build & run demo
+### Build/Run
 
 1. Clone this repository or download as zip.
 2. In vscode, open folder via `File` -> `Open Folder...` menu.
@@ -49,8 +50,11 @@ If you plan to upload firmware & debug hardware, read notes in PlatformIO
      dependencies.
 3. Build via `Terminal` -> `Run Build Task...` -> `PlatformIO: Build`
 
-Then you may run demo as
+If you succeeded with `native` build, you can run it this way:
 
 ```sh
 ./.pio/build/native/program
 ```
+
+If `native` not yet supported for your OS, you still can do stm32 build,
+upload and so on.
