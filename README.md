@@ -14,7 +14,7 @@ This demo should help you to organize your project with awesome PlatformIO IDE.
 
 **Important!** `native` build (emulator with SDL2 drivers) was tested in
 linux only! But you still can build MCU targets. If anyone interested to
-improve other OS support (Windows, macOS) - PR welcome.
+improve other OS support (Windows) - PR welcome.
 
 
 ### Install Visual Studio Code
@@ -29,6 +29,14 @@ In linux just run:
 
 ```sh
 sudo apt-get install libsdl2-dev
+```
+
+In Mac OSX just run:
+First you have do download and install Homebrew (https://brew.sh/)
+Here's a good documentation how to do that: https://dev.to/berry_clione/install-homebrew-on-macos-mojave-4m3m
+After that you have to install SDL Version 2
+```sh
+brew install sdl2
 ```
 
 Note, this demo still needs care for easy install/build SDL drivers in other
@@ -48,6 +56,7 @@ If you plan to upload firmware & debug hardware, read notes in PlatformIO
    - If you do it first time - agree, when it suggests to install PlatformIO
      plugin, and wait when PlatformIO then install build tools and package
      dependencies.
+2.1. If you wanna use it on mac osx, you have to enable "APPLE_SDL" in platformio.ini
 3. Build via `Terminal` -> `Run Build Task...` -> `PlatformIO: Build`
 
 If you succeeded with `native` build, you can run it this way:
