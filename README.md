@@ -58,7 +58,6 @@ If you plan to upload firmware & debug hardware, read notes in PlatformIO
    - If you do it first time - agree, when it suggests to install PlatformIO
      plugin, and wait when PlatformIO then install build tools and package
      dependencies.
-2.1. If you wanna use it on mac osx, you have to enable "APPLE_SDL" in platformio.ini
 3. Build via `Terminal` -> `Run Build Task...` -> `PlatformIO: Build`
 
 If you succeeded with `native` build, you can run it this way:
