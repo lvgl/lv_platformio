@@ -43,7 +43,7 @@
 *****************************************************************************
 */
 
-#if BUILD_ENV_NAME == stm32f429_disco
+#if !defined(APPLE_SDL) && BUILD_ENV_NAME == stm32f429_disco
 
 /* Includes */
 #include <sys/stat.h>
