@@ -63,5 +63,23 @@ void hw_loop(void)
     while(1) {
         SDL_Delay(5);
         lv_task_handler();
+
+#if defined(APPLE_SDL)
+        SDL_Event event;
+
+        while(SDL_PollEvent(&event)) {
+#if USE_MOUSE != 0
+            mouse_handler(&event);
+#endif
+
+#if USE_KEYBOARD
+            keyboard_handler(&event);
+#endif
+
+#if USE_MOUSEWHEEL != 0
+            mousewheel_handler(&event);
+#endif
+        }
+#endif
     }
 }
