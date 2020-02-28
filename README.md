@@ -31,10 +31,10 @@ In linux just run:
 sudo apt-get install libsdl2-dev
 ```
 
-In Mac OSX just run:
-First you have do download and install Homebrew (https://brew.sh/)
-Here's a good documentation how to do that: https://dev.to/berry_clione/install-homebrew-on-macos-mojave-4m3m
-After that you have to install SDL Version 2
+In Mac OSX just follow the steps:
+#### First you have do download and install Homebrew (https://brew.sh/)
+#### Here's a good documentation how to do that: https://dev.to/berry_clione/install-homebrew-on-macos-mojave-4m3m
+#### After that you have to install SDL Version 2
 ```sh
 brew install sdl2
 ```
