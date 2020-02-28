@@ -38,6 +38,8 @@ In Mac OSX just follow the steps:
 ```sh
 brew install sdl2
 ```
+4. Enable "-D APPLE_SDL" in platformio.ini 
+
 
 Note, this demo still needs care for easy install/build SDL drivers in other
 operating systems.
