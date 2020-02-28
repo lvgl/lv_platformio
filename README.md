@@ -32,9 +32,9 @@ sudo apt-get install libsdl2-dev
 ```
 
 In Mac OSX just follow the steps:
-#### First you have do download and install Homebrew (https://brew.sh/)
-#### Here's a good documentation how to do that: https://dev.to/berry_clione/install-homebrew-on-macos-mojave-4m3m
-#### After that you have to install SDL Version 2
+1. First you have do download and install Homebrew (https://brew.sh/)
+2. Here's a good documentation how to do that: https://dev.to/berry_clione/install-homebrew-on-macos-mojave-4m3m
+3. After that you have to install "SDL Version 2"
 ```sh
 brew install sdl2
 ```
