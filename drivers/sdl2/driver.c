@@ -50,7 +50,18 @@ void hw_init(void)
     lv_indev_drv_init(&indev_drv);          /*Basic initialization*/
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = mouse_read;         /*This function will be called periodically (by the library) to get the mouse position and state*/
-    lv_indev_drv_register(&indev_drv);
+    lv_indev_t* mouse_indev = lv_indev_drv_register(&indev_drv);
+    rotary_group_init(mouse_indev);
+
+#if 0 //USE_MOUSEWHEEL
+    // won't work at present, will cause segmentation fault.
+    lv_indev_drv_t enc_drv;
+    lv_indev_drv_init(&enc_drv);
+    enc_drv.type = LV_INDEV_TYPE_ENCODER;
+    enc_drv.read_cb = mousewheel_read;
+    lv_indev_t * enc_indev = lv_indev_drv_register(&enc_drv);
+    lv_indev_set_group(enc_indev, rotary_group_get());
+#endif
 
     /* Tick init.
      * You have to call 'lv_tick_inc()' in periodically to inform LittelvGL about how much time were elapsed
