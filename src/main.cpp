@@ -14,13 +14,31 @@
 
 #include "demo.h"
 
-int main(void)
+#if defined(ARDUINO_ARCH_ESP8266)
+extern "C" void setup();
+extern "C" void loop();
+#endif
+
+void setup()
 {
 	lv_init();
 
 	hw_init();
 
 	demo_create();
-
-	hw_loop();
 }
+
+void loop()
+{
+  hw_loop();
+}
+
+#if ! defined(ARDUINO)
+int main(void)
+{
+  setup();
+  while(1) {
+  	loop();
+  }
+}
+#endif

@@ -103,8 +103,6 @@ void hw_init(void)
 
 void hw_loop(void)
 {
-    while(1) {
-        HAL_Delay(5);
-    		lv_task_handler();
-    }
+    HAL_Delay(5);
+    lv_task_handler();
 }

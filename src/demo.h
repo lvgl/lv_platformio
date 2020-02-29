@@ -14,7 +14,7 @@ extern "C" {
  *      INCLUDES
  *********************/
 
-#ifdef LV_CONF_INCLUDE_SIMPLE
+#if defined(LV_CONF_INCLUDE_SIMPLE) || defined(ARDUINO)
 #include <lvgl.h>
 #else
 #include "../../../lvgl/lvgl.h"
@@ -26,7 +26,10 @@ extern "C" {
  *********************/
 #define LV_USE_DEMO 1
 #define LV_DEMO_WALLPAPER  1
-
+#if (LV_COLOR_DEPTH < 16) || defined(ESP8266)
+#undef  LV_DEMO_WALLPAPER
+#define LV_DEMO_WALLPAPER  0
+#endif
 /**********************
  *      TYPEDEFS
  **********************/
