@@ -31,6 +31,13 @@ In linux just run:
 sudo apt-get install libsdl2-dev
 ```
 
+In MacOS use [Homebrew](https://brew.sh/):
+
+```sh
+brew install sdl2
+```
+
+
 Note, this demo still needs care for easy install/build SDL drivers in other
 operating systems.
 
