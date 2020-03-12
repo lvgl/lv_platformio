@@ -1,6 +1,7 @@
 jobs:
   include:
     -
+      name: Ubuntu 18.04
       dist: bionic
       language: python
       python:
@@ -8,9 +9,9 @@ jobs:
       cache:
         directories:
           - "~/.platformio"
-      before_install:
-        - sudo apt-get update
-        - sudo apt-get install gcc-multilib g++-multilib libsdl2-dev:i386
+      addons:
+        apt:
+          packages: [ "libsdl2-dev:i386", gcc-multilib, g++-multilib ]
       install:
         - pip install -U platformio
         - platformio update
@@ -20,3 +21,38 @@ jobs:
         - platformio run -e stm32f429_disco
         # Tests not available now
         #- platformio test -e native
+    -
+      name: macOS 10.14
+      os: osx
+      osx_image: xcode11.3
+      language: shell
+      cache:
+        directories:
+          - "~/.platformio"
+      before_install:
+        - HOMEBREW_NO_AUTO_UPDATE=1 brew install sdl2
+      install:
+        - pip install -U platformio
+        - platformio update
+      script:
+        # Test builds status
+        - platformio run -e native
+        - platformio run -e stm32f429_disco
+    #-
+    #  name: Windows
+    #  os: windows           # Windows 10.0.17134 N/A Build 17134
+    #  language: shell
+    #  before_install:
+    #    - choco install python --version 3.6.8
+    #    - python --version
+    #    - python -m pip install --upgrade pip
+    #    - pip3 install --upgrade pytest
+    #    - pip3 install codecov
+    #  env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+    #  install:
+    #    - pip install -U platformio
+    #    - platformio update
+    #  script:
+    #    # Test builds status
+    #    - platformio run -e native
+    #    - platformio run -e stm32f429_disco
