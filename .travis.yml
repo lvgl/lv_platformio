@@ -1,0 +1,22 @@
+jobs:
+  include:
+    -
+      dist: bionic
+      language: python
+      python:
+        - "3.6"
+      cache:
+        directories:
+          - "~/.platformio"
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install gcc-multilib g++-multilib libsdl2-dev:i386
+      install:
+        - pip install -U platformio
+        - platformio update
+      script:
+        # Test builds status
+        - platformio run -e native
+        - platformio run -e stm32f429_disco
+        # Tests not available now
+        #- platformio test -e native

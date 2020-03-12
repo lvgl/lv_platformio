@@ -1,5 +1,7 @@
 # Run LittlevGL via PlatformIO
 
+[![Build Status](https://travis-ci.org/littlevgl/lv_platformio.svg?branch=master)](https://travis-ci.org/littlevgl/lv_platformio)
+
 This demo should help you to organize your project with awesome PlatformIO IDE.
 
 1. It automates installing everything - just open folder with this project in
@@ -25,21 +27,31 @@ vscode yet.
 
 ### Install SDL drivers
 
-In linux just run:
+**Linux (Ubuntu, Debian, ...)**
 
 ```sh
-sudo apt-get install libsdl2-dev
+sudo apt-get install gcc-multilib g++-multilib libsdl2-dev:i386
 ```
 
-In MacOS use [Homebrew](https://brew.sh/):
+Note:
+
+- We use 32-bits build for more correct memory stat info. You can
+  disable this in `platformio.ini` (see comments inside), and use `libsdl2-dev`
+  instead.
+- If you have conflicts on `libsdl2-dev:i386` install, remove 64-bits version
+  and dependencies first.
+
+**MacOS**
+
+Use [Homebrew](https://brew.sh/):
 
 ```sh
 brew install sdl2
 ```
 
+**Windows**
 
-Note, this demo still needs care for easy install/build SDL drivers in other
-operating systems.
+Not ready yet. PR welcome.
 
 
 ### Install flasher drivers (optional)
