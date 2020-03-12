@@ -55,13 +55,7 @@ If you plan to upload firmware & debug hardware, read notes in PlatformIO
    - If you do it first time - agree, when it suggests to install PlatformIO
      plugin, and wait when PlatformIO then install build tools and package
      dependencies.
-3. Build via `Terminal` -> `Run Build Task...` -> `PlatformIO: Build`
-
-If you succeeded with `native` build, you can run it this way:
-
-```sh
-./.pio/build/native/program
-```
+3. Build & execute via `Terminal` -> `Run Task...` -> `PlatformIO: Execute (native)`
 
 If `native` not yet supported for your OS, you still can do stm32 build,
 upload and so on.
