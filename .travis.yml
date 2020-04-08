@@ -32,27 +32,26 @@ jobs:
       before_install:
         - HOMEBREW_NO_AUTO_UPDATE=1 brew install sdl2
       install:
+        - sudo easy_install pip # TODO: remove after https://travis-ci.community/t/missed-pip-after-xcode-image-update/7802 fixed
+        - pip install --upgrade pip
         - pip install -U platformio
         - platformio update
       script:
         # Test builds status
         - platformio run -e native
         - platformio run -e stm32f429_disco
-    #-
-    #  name: Windows
-    #  os: windows           # Windows 10.0.17134 N/A Build 17134
-    #  language: shell
-    #  before_install:
-    #    - choco install python --version 3.6.8
-    #    - python --version
-    #    - python -m pip install --upgrade pip
-    #    - pip3 install --upgrade pytest
-    #    - pip3 install codecov
-    #  env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-    #  install:
-    #    - pip install -U platformio
-    #    - platformio update
-    #  script:
-    #    # Test builds status
-    #    - platformio run -e native
-    #    - platformio run -e stm32f429_disco
+    -
+      name: Windows
+      os: windows           # Windows 10.0.17134 N/A Build 17134
+      language: shell
+      before_install:
+        - choco install python --version 3.6.8
+        - python -m pip install --upgrade pip
+      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+      install:
+        - pip install -U platformio
+        - platformio update
+      script:
+        # Test builds status (bare metal only)
+        #- platformio run -e native
+        - platformio run -e stm32f429_disco
