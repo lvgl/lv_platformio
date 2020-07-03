@@ -47,11 +47,30 @@ jobs:
       before_install:
         - choco install python --version 3.6.8
         - python -m pip install --upgrade pip
-      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+        - |-
+          [[ ! -f C:/tools/msys64/msys2_shell.cmd ]] && rm -rf C:/tools/msys64
+          choco uninstall -y mingw
+          choco upgrade --no-progress -y msys2
+          export msys2='cmd //C RefreshEnv.cmd '
+          export msys2+='& set MSYS=winsymlinks:nativestrict '
+          export msys2+='& C:\\tools\\msys64\\msys2_shell.cmd -defterm -no-start'
+          export mingw64="$msys2 -mingw64 -full-path -here -c "\"\$@"\" --"
+          export msys2+=" -msys2 -c "\"\$@"\" --"
+          $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-toolchain mingw-w64-x86_64-SDL2
+          taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
+          export MAKE=mingw32-make  # so that Autotools can find it
+
+      env: PATH=/c/Python36:/c/Python36/Scripts:/C/tools/msys64/mingw64/bin:$PATH
+      before_cache:
+        - $msys2 pacman --sync --clean --noconfirm
+      cache:
+        directories:
+          - $HOME/AppData/Local/Temp/chocolatey
+          - /C/tools/msys64      
       install:
         - pip install -U platformio
         - platformio update
       script:
         # Test builds status (bare metal only)
-        #- platformio run -e native
+        - platformio run -e native
         - platformio run -e stm32f429_disco
