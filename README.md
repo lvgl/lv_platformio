@@ -1,6 +1,6 @@
 # Run LittlevGL via PlatformIO
 
-[![Build Status](https://travis-ci.org/littlevgl/lv_platformio.svg?branch=master)](https://travis-ci.org/littlevgl/lv_platformio)
+[![Build Status](https://travis-ci.org/lvgl/lv_platformio.svg?branch=master)](https://travis-ci.org/lvgl/lv_platformio)
 
 This demo should help you to organize your project with awesome PlatformIO IDE.
 
