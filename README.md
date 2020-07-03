@@ -51,7 +51,14 @@ brew install sdl2
 
 **Windows**
 
-Not ready yet. PR welcome.
+Use [MSYS2](https://www.msys2.org/)
+
+```sh
+pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
+```
+
+Add the path to your Mingw-w64 `bin` folder to the Windows PATH environment
+variable (usually `C:\msys64\mingw64\bin`). See [instruction, 4](https://code.visualstudio.com/docs/cpp/config-mingw#_prerequisites).
 
 
 ### Install flasher drivers (optional)
@@ -67,7 +74,6 @@ If you plan to upload firmware & debug hardware, read notes in PlatformIO
    - If you do it first time - agree, when it suggests to install PlatformIO
      plugin, and wait when PlatformIO then install build tools and package
      dependencies.
-3. Build & execute via `Terminal` -> `Run Task...` -> `PlatformIO: Execute (native)`
-
-If `native` not yet supported for your OS, you still can do stm32 build,
-upload and so on.
+3. Build / execute:
+   - **Simulator**: `Terminal` -> `Run Task...` -> `PlatformIO: Execute (native)`
+   - **Bare metal**: `Terminal` -> `Run Build Task...` -> `PlatformIO: Build (stm32f429_disco)`
