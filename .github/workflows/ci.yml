@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 3'
+
+jobs:
+  Linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Linux dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install libsdl2-dev:i386 gcc-multilib g++-multilib
+
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U platformio
+          platformio update
+      
+      - name: Build bare metal (stm32f429_disco)
+        run: platformio run -e stm32f429_disco
+
+      - name: Build native (sdl2)
+        run: platformio run -e native
+
+  macOS:
+    runs-on: macos-latest
+    steps:
+      - name: Install macOS dependencies
+        run: |
+          HOMEBREW_NO_AUTO_UPDATE=1 brew install sdl2
+
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U platformio
+          platformio update
+      
+      - name: Build bare metal (stm32f429_disco)
+        run: platformio run -e stm32f429_disco
+
+      - name: Build native (sdl2)
+        run: platformio run -e native
+
+  Windows:
+    runs-on: windows-latest
+    steps:
+      - name: Activate msys2 & mingw64
+        run: |
+          echo "::add-path::C:/msys64/usr/bin"
+          echo "::add-path::C:/msys64/mingw64/bin"
+
+      - name: Install deps
+        run: |
+          pacman --noconfirm -S --needed mingw-w64-x86_64-SDL2
+          gcc --version
+
+      - uses: actions/checkout@v2
+      #- uses: actions/setup-python@v1
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U platformio
+          platformio update
+
+      - name: Build bare metal (stm32f429_disco)
+        run: platformio run -e stm32f429_disco
+
+      - name: Build native (sdl2)
+        run: platformio run -e native
