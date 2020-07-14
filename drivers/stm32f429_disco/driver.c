@@ -4,6 +4,10 @@
 #include "tft/tft.h"
 #include "touchpad/touchpad.h"
 
+#ifdef USE_RTOS_SYSTICK
+#include <cmsis_os.h>
+#endif
+
 
 /**
   * @brief  System Clock Configuration
@@ -80,6 +84,17 @@ static void SystemClock_Config(void)
     HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
 }
 
+void SysTick_Handler(void)
+{
+	HAL_IncTick();
+	HAL_SYSTICK_IRQHandler();
+
+	lv_tick_inc(1);
+
+#ifdef USE_RTOS_SYSTICK
+	osSystickHandler();
+#endif
+}
 
 void hw_init(void)
 {
