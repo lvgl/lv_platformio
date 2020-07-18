@@ -84,6 +84,23 @@ static void SystemClock_Config(void)
     HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
 }
 
+
+void hal_setup(void)
+{
+    HAL_Init();
+
+  	/* Configure the system clock to 180 MHz */
+  	SystemClock_Config();
+
+  	/* Start up indication */
+  	BSP_LED_Init(LED3);
+  	for (uint8_t i = 0; i < 8; i++) { BSP_LED_Toggle(LED3); HAL_Delay(50); }
+
+  	tft_init();
+  	touchpad_init();
+}
+
+
 void SysTick_Handler(void)
 {
 	HAL_IncTick();
@@ -94,25 +111,6 @@ void SysTick_Handler(void)
 #ifdef USE_RTOS_SYSTICK
 	osSystickHandler();
 #endif
-}
-
-void hal_setup(void)
-{
-    HAL_Init();
-
-  	/* Configure the system clock to 180 MHz */
-  	SystemClock_Config();
-
-  	/*Start up indication*/
-  	BSP_LED_Init(LED3);
-  	uint8_t i;
-  	for (i = 0; i < 8; i++) {
-  		BSP_LED_Toggle(LED3);
-  		HAL_Delay(50);
-  	}
-
-  	tft_init();
-  	touchpad_init();
 }
 
 
