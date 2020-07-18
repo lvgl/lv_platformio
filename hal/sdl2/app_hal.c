@@ -25,7 +25,7 @@ static int tick_thread(void * data)
 }
 
 
-void hw_init(void)
+void hal_setup(void)
 {
     /* Add a display
      * Use the 'monitor' driver which creates window on PC's monitor to simulate a display*/
@@ -58,7 +58,7 @@ void hw_init(void)
     SDL_CreateThread(tick_thread, "tick", NULL);
 }
 
-void hw_loop(void)
+void hal_loop(void)
 {
     while(1) {
         SDL_Delay(5);

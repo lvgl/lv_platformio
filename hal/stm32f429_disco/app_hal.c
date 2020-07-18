@@ -96,7 +96,7 @@ void SysTick_Handler(void)
 #endif
 }
 
-void hw_init(void)
+void hal_setup(void)
 {
     HAL_Init();
 
@@ -116,7 +116,7 @@ void hw_init(void)
 }
 
 
-void hw_loop(void)
+void hal_loop(void)
 {
     while(1) {
         HAL_Delay(5);

@@ -6,8 +6,8 @@ extern "C" {
 #endif
 
 
-void hw_init(void);
-void hw_loop(void);
+void hal_setup(void);
+void hal_loop(void);
 
 
 #ifdef __cplusplus
