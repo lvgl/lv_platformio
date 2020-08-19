@@ -6,7 +6,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "../tft/tft.h"
+#include "tft.h"
 #include "lvgl.h"
 
 #include "stm32f4xx.h"

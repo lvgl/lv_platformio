@@ -1,8 +1,8 @@
 
 #include "stm32f4xx.h"
 #include "stm32f429i_discovery.h"
-#include "tft/tft.h"
-#include "touchpad/touchpad.h"
+#include "tft.h"
+#include "touchpad.h"
 
 #ifdef USE_RTOS_SYSTICK
 #include <cmsis_os.h>
