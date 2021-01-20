@@ -57,6 +57,8 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Activate msys2 & mingw64
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: |
           echo "::add-path::C:/msys64/usr/bin"
           echo "::add-path::C:/msys64/mingw64/bin"
