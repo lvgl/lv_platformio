@@ -58,8 +58,8 @@ jobs:
     steps:
       - name: Activate msys2 & mingw64
         run: |
-          echo "C:/msys64/usr/bin" >> $GITHUB_PATH
-          echo "C:/msys64/mingw64/bin" >> $GITHUB_PATH
+          echo "C:\msys64\usr\bin" >> $env:GITHUB_PATH
+          echo "C:\msys64\mingw64\bin" >> $env:GITHUB_PATH
 
       - name: Install deps
         run: |
