@@ -12,24 +12,46 @@ jobs:
     steps:
       - name: Install Linux dependencies
         run: |
+          sudo apt-get update
+          sudo apt-get install libsdl2-dev
+
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U platformio
+          platformio update
+
+      - name: Build bare metal (stm32f429_disco)
+        run: platformio run -e stm32f429_disco
+
+      - name: Build emulator (sdl2, 64bits)
+        run: platformio run -e emulator_64bits
+
+
+  Linux_i386:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Linux dependencies
+        run: |
           sudo dpkg --add-architecture i386
           sudo apt-get update
           sudo apt-get install libsdl2-dev:i386 gcc-multilib g++-multilib
 
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
-        
+
       - name: Install PlatformIO
         run: |
           python -m pip install --upgrade pip
           pip install -U platformio
           platformio update
-      
-      - name: Build bare metal (stm32f429_disco)
-        run: platformio run -e stm32f429_disco
 
-      - name: Build native (sdl2)
-        run: platformio run -e native
+      - name: Build emulator (sdl2, 32bits)
+        run: platformio run -e emulator_32bits
+
 
   macOS:
     runs-on: macos-latest
@@ -40,18 +62,19 @@ jobs:
 
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
-        
+
       - name: Install PlatformIO
         run: |
           python -m pip install --upgrade pip
           pip install -U platformio
           platformio update
-      
+
       - name: Build bare metal (stm32f429_disco)
         run: platformio run -e stm32f429_disco
 
-      - name: Build native (sdl2)
-        run: platformio run -e native
+      - name: Build emulator (sdl2, 64bits)
+        run: platformio run -e emulator_64bits
+
 
   Windows:
     runs-on: windows-latest
@@ -78,5 +101,5 @@ jobs:
       - name: Build bare metal (stm32f429_disco)
         run: platformio run -e stm32f429_disco
 
-      - name: Build native (sdl2)
-        run: platformio run -e native
+      - name: Build emulator (sdl2, 64bits)
+        run: platformio run -e emulator_64bits

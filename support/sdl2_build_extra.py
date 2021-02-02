@@ -7,8 +7,8 @@ for e in [ env, projenv ]:
         e.Append(LINKFLAGS = ["-m32"])
 
 # Override unused "upload" to execute compiled binary
-#from SCons.Script import AlwaysBuild
-#AlwaysBuild(env.Alias("upload", "$BUILD_DIR/${PROGNAME}", "$BUILD_DIR/${PROGNAME}"))
+from SCons.Script import AlwaysBuild
+AlwaysBuild(env.Alias("upload", "$BUILD_DIR/${PROGNAME}", "$BUILD_DIR/${PROGNAME}"))
 
 # Add custom target to explorer
 env.AddTarget(
