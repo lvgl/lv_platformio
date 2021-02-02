@@ -27,6 +27,12 @@ static int tick_thread(void * data)
 
 void hal_setup(void)
 {
+    // Workaround for sdl2 `-m32` crash
+    // https://bugs.launchpad.net/ubuntu/+source/libsdl2/+bug/1775067/comments/7
+    #ifndef WIN32
+        setenv("DBUS_FATAL_WARNINGS", "0", 1);
+    #endif
+
     /* Add a display
      * Use the 'monitor' driver which creates window on PC's monitor to simulate a display*/
     monitor_init();

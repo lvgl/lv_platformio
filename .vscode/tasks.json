@@ -7,15 +7,6 @@
             "label": "PlatformIO: Execute (native)",
             "type": "shell",
             "command": "./.pio/build/native/program",
-            "linux": {
-                "options": {
-                    "env": {
-                        // Workaroung for sdl2 `-m32` crash
-                        // https://bugs.launchpad.net/ubuntu/+source/libsdl2/+bug/1775067/comments/7
-                        "DBUS_FATAL_WARNINGS": "0"
-                    }
-                }
-            },
             "dependsOn": [ "PlatformIO: Build (native)" ],
             "problemMatcher": []
         }
