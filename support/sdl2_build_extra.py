@@ -13,8 +13,8 @@ AlwaysBuild(env.Alias("upload", "$BUILD_DIR/${PROGNAME}", "$BUILD_DIR/${PROGNAME
 # Add custom target to explorer
 env.AddTarget(
     name = "execute",
-    dependencies = "$BUILD_DIR/${PROGNAME}",
-    actions = "$BUILD_DIR/${PROGNAME}",
+    dependencies = "$BUILD_DIR/${PROGNAME}.exe",
+    actions = "$BUILD_DIR/${PROGNAME}.exe",
     title = "Execute",
     description = "Build and execute",
     group="General"
