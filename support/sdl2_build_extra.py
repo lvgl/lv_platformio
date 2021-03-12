@@ -6,15 +6,19 @@ for e in [ env, projenv ]:
     if "-m32" in e['CCFLAGS']:
         e.Append(LINKFLAGS = ["-m32"])
 
+import os
+
+exec_name = "$BUILD_DIR/${PROGNAME}.exe" if os.name == 'nt' else "$BUILD_DIR/${PROGNAME}"
+
 # Override unused "upload" to execute compiled binary
 from SCons.Script import AlwaysBuild
-AlwaysBuild(env.Alias("upload", "$BUILD_DIR/${PROGNAME}", "$BUILD_DIR/${PROGNAME}"))
+AlwaysBuild(env.Alias("upload", exec_name, exec_name))
 
 # Add custom target to explorer
 env.AddTarget(
     name = "execute",
-    dependencies = "$BUILD_DIR/${PROGNAME}",
-    actions = "$BUILD_DIR/${PROGNAME}",
+    dependencies = exec_name,
+    actions = exec_name,
     title = "Execute",
     description = "Build and execute",
     group="General"
