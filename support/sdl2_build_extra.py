@@ -6,9 +6,7 @@ for e in [ env, projenv ]:
     if "-m32" in e['CCFLAGS']:
         e.Append(LINKFLAGS = ["-m32"])
 
-import os
-
-exec_name = "$BUILD_DIR/${PROGNAME}.exe" if os.name == 'nt' else "$BUILD_DIR/${PROGNAME}"
+exec_name = "${BUILD_DIR}/${PROGNAME}${PROGSUFFIX}"
 
 # Override unused "upload" to execute compiled binary
 from SCons.Script import AlwaysBuild
