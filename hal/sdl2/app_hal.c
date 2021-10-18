@@ -35,24 +35,26 @@ void hal_setup(void)
 
     /* Add a display
      * Use the 'monitor' driver which creates window on PC's monitor to simulate a display*/
-    monitor_init();
 
-    static lv_disp_buf_t disp_buf;
-    static lv_color_t buf[LV_HOR_RES_MAX * 10];                     /*Declare a buffer for 10 lines*/
-    lv_disp_buf_init(&disp_buf, buf, NULL, LV_HOR_RES_MAX * 10);    /*Initialize the display buffer*/
-
-    lv_disp_drv_t disp_drv;
+    static lv_disp_draw_buf_t disp_buf;
+    static lv_color_t buf[SCREEN_WIDTH * 10];                     /*Declare a buffer for 10 lines*/
+    lv_disp_draw_buf_init(&disp_buf, buf, NULL, SCREEN_WIDTH * 10);    /*Initialize the display buffer*/
+    
+    static lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);            /*Basic initialization*/
     disp_drv.flush_cb = monitor_flush;    /*Used when `LV_VDB_SIZE != 0` in lv_conf.h (buffered drawing)*/
-    disp_drv.buffer = &disp_buf;
+    disp_drv.draw_buf = &disp_buf;
+    disp_drv.hor_res = SCREEN_WIDTH;
+    disp_drv.ver_res = SCREEN_HEIGHT;
     //disp_drv.disp_fill = monitor_fill;      /*Used when `LV_VDB_SIZE == 0` in lv_conf.h (unbuffered drawing)*/
     //disp_drv.disp_map = monitor_map;        /*Used when `LV_VDB_SIZE == 0` in lv_conf.h (unbuffered drawing)*/
     lv_disp_drv_register(&disp_drv);
 
-    /* Add the mouse as input device
-     * Use the 'mouse' driver which reads the PC's mouse*/
+    monitor_init();
+    // // /* Add the mouse as input device
+    // //  * Use the 'mouse' driver which reads the PC's mouse*/
     mouse_init();
-    lv_indev_drv_t indev_drv;
+    static lv_indev_drv_t indev_drv;
     lv_indev_drv_init(&indev_drv);          /*Basic initialization*/
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = mouse_read;         /*This function will be called periodically (by the library) to get the mouse position and state*/
