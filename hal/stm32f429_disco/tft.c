@@ -76,8 +76,8 @@ static const lv_color_t *buf_to_flush;
 void tft_init(void)
 {
   static lv_color_t disp_buf1[TFT_HOR_RES * 40];
-  static lv_disp_buf_t buf;
-  lv_disp_buf_init(&buf, disp_buf1, NULL, TFT_HOR_RES * 40);
+  static lv_disp_draw_buf_t buf;
+  lv_disp_draw_buf_init(&buf, disp_buf1, NULL, TFT_HOR_RES * 40);
 
   lv_disp_drv_init(&disp_drv);
 
@@ -85,7 +85,7 @@ void tft_init(void)
   BSP_LCD_LayerDefaultInit(0, (uint32_t)my_fb);
   HAL_LTDC_SetPixelFormat(&LtdcHandler, LTDC_PIXEL_FORMAT_RGB565, 0);
   DMA_Config();
-  disp_drv.buffer = &buf;
+  disp_drv.draw_buf = &buf;
   disp_drv.flush_cb = tft_flush;
   disp_drv.hor_res = TFT_HOR_RES;
   disp_drv.ver_res = TFT_VER_RES;
@@ -95,6 +95,14 @@ void tft_init(void)
   disp_drv.gpu_fill_cb = gpu_mem_fill;
 #endif
   lv_disp_drv_register(&disp_drv);
+
+  // at hal_setup() there was necessary to move monitor_init()
+  // after lv_disp_drv_register() otherwise program crash after fraction of second
+  // so it might be similar here but I can not test it
+  // BSP_LCD_Init();
+  // BSP_LCD_LayerDefaultInit(0, (uint32_t)my_fb);
+  // HAL_LTDC_SetPixelFormat(&LtdcHandler, LTDC_PIXEL_FORMAT_RGB565, 0);
+  // DMA_Config();
 }
 
 /**********************

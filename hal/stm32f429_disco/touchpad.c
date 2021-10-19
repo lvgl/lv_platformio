@@ -24,7 +24,7 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static bool touchpad_read(lv_indev_drv_t * drv, lv_indev_data_t *data);
+static void touchpad_read(lv_indev_drv_t * drv, lv_indev_data_t *data);
 static bool touchpad_get_xy(int16_t *x, int16_t *y);
 
 /**********************
@@ -65,7 +65,7 @@ void touchpad_init(void)
  * @param y put the y coordinate here
  * @return true: the device is pressed, false: released
  */
-static bool touchpad_read(lv_indev_drv_t * drv, lv_indev_data_t *data)
+static void touchpad_read(lv_indev_drv_t * drv, lv_indev_data_t *data)
 {
 	static int16_t last_x = 0;
 	static int16_t last_y = 0;
@@ -86,8 +86,6 @@ static bool touchpad_read(lv_indev_drv_t * drv, lv_indev_data_t *data)
 		data->point.y = last_y;
 		data->state = LV_INDEV_STATE_REL;
 	}
-
-	return false;
 }
 
 
@@ -102,7 +100,7 @@ static bool touchpad_get_xy(int16_t *x, int16_t *y)
 	if(!detected) return false;
 
 
-	stmpe811_TS_GetXY(TS_I2C_ADDRESS, &x_raw, &y_raw);
+	stmpe811_TS_GetXY(TS_I2C_ADDRESS, (uint16_t*)&x_raw, (uint16_t*)&y_raw);
 
 	/* Y value first correction */
 	y_raw -= 360;
