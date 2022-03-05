@@ -12,7 +12,7 @@
 #include "lvgl.h"
 #include "app_hal.h"
 
-#include "demo.h"
+#include "demos/lv_demos.h"
 
 int main(void)
 {
@@ -20,7 +20,7 @@ int main(void)
 
 	hal_setup();
 
-	demo_create();
+  lv_demo_widgets();
 
 	hal_loop();
 }
