@@ -48,8 +48,9 @@ Use [Homebrew](https://brew.sh/):
 brew install sdl2
 ```
 Note: 
-On mac os you need to include (uncomment in provided example platformio.ini file) these lines in your platformio.ini file to import the drivers:
-```; SDL2 includes
+On MacOS you need to include (uncomment in provided example platformio.ini file) these lines in your platformio.ini file to import the drivers:
+```
+  ; SDL2 includes
   !find /opt/homebrew/Cellar/sdl2 -name "include" | sed "s/^/-I /"
   !find /opt/homebrew/Cellar/sdl2 -name "libSDL2.a" | xargs dirname | sed "s/^/-L /"
 ```
