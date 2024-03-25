@@ -55,6 +55,16 @@ On MacOS you need to include (uncomment in provided example platformio.ini file)
   !find /opt/homebrew/Cellar/sdl2 -name "libSDL2.a" | xargs dirname | sed "s/^/-L /"
 ```
 
+If you get the following error on M-chip Mac with VSCode, you can add `-arch arm64` to `build_flags` in `platformio.ini` or just run `pio run -e emulator_64bits -t execute` in the system Python environment. (`pio` should be installed in system Python first).
+```
+ld: warning: ignoring file '/opt/homebrew/Cellar/sdl2/2.30.1/lib/libSDL2-2.0.0.dylib': found architecture 'arm64', required architecture 'x86_64'
+ld: Undefined symbols:
+  _SDL_CreateRenderer, referenced from:
+      _window_create in sdl.o
+...
+```
+
+
 **Windows**
 
 Use [MSYS2](https://www.msys2.org/)
