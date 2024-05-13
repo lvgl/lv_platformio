@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include "tft.h"
+#include <lvgl.h>
 #include "stm32f4xx.h"
 #include "stm32f429i_discovery_lcd.h"
 #include "ili9341.h"
@@ -18,6 +19,8 @@
  *********************/
 
 #define SDRAM_BANK_ADDR ((uint32_t)0xD0000000)
+
+#define LV_BUFFER_SIZE  (TFT_HOR_RES * TFT_VER_RES / 8 * (LV_COLOR_DEPTH / 8))
 
 #define DMA_STREAM DMA2_Stream0
 #define DMA_CHANNEL DMA_CHANNEL_0
@@ -32,7 +35,7 @@
  *  STATIC PROTOTYPES
  **********************/
 
-static void tft_flush(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_p);
+static void tft_flush(lv_display_t * disp, const lv_area_t * area, uint8_t * px_map);
 
 /**********************
  *  STATIC VARIABLES
@@ -55,17 +58,21 @@ static void DMA_TransferComplete(DMA_HandleTypeDef *han);
 static void DMA_TransferError(DMA_HandleTypeDef *han);
 
 DMA_HandleTypeDef DmaHandle;
-static lv_disp_drv_t disp_drv;
+static lv_display_t * lvDisplay;
+
+static uint8_t lvBuffer[LV_BUFFER_SIZE];
 static int32_t x1_flush;
 static int32_t y1_flush;
 static int32_t x2_flush;
 static int32_t y2_fill;
 static int32_t y_fill_act;
-static const lv_color_t *buf_to_flush;
+static const uint8_t *buf_to_flush;
 
 /**********************
  *      MACROS
  **********************/
+
+
 
 /**********************
  *   GLOBAL FUNCTIONS
@@ -75,31 +82,46 @@ static const lv_color_t *buf_to_flush;
  */
 void tft_init(void)
 {
-  static lv_color_t disp_buf1[TFT_HOR_RES * 40];
-  static lv_disp_draw_buf_t buf;
-  lv_disp_draw_buf_init(&buf, disp_buf1, NULL, TFT_HOR_RES * 40);
+  #if LV_USE_LOG != 0
+    lv_log_register_print_cb(lv_log_print_g_cb);
+  #endif
 
-  lv_disp_drv_init(&disp_drv);
+  lvDisplay = lv_display_create(TFT_HOR_RES, TFT_VER_RES);
+  if (lvDisplay)
+  {
+    BSP_LCD_Init();
+    BSP_LCD_LayerDefaultInit(0, (uint32_t)my_fb);
+    HAL_LTDC_SetPixelFormat(&LtdcHandler, LTDC_PIXEL_FORMAT_RGB565, 0);
+    DMA_Config();
 
-  BSP_LCD_Init();
-  BSP_LCD_LayerDefaultInit(0, (uint32_t)my_fb);
-  HAL_LTDC_SetPixelFormat(&LtdcHandler, LTDC_PIXEL_FORMAT_RGB565, 0);
-  DMA_Config();
-  disp_drv.draw_buf = &buf;
-  disp_drv.flush_cb = tft_flush;
-  disp_drv.hor_res = TFT_HOR_RES;
-  disp_drv.ver_res = TFT_VER_RES;
-#if TFT_USE_GPU != 0
-  DMA2D_Config();
-  disp_drv.gpu_blend_cb = gpu_mem_blend;
-  disp_drv.gpu_fill_cb = gpu_mem_fill;
-#endif
-  lv_disp_drv_register(&disp_drv);
+    lv_display_set_color_format(lvDisplay, LV_COLOR_FORMAT_RGB565);
+    lv_display_set_flush_cb(lvDisplay, tft_flush);
+    lv_display_set_buffers(lvDisplay, lvBuffer, NULL, LV_BUFFER_SIZE, LV_DISPLAY_RENDER_MODE_PARTIAL);
+    
+  #if TFT_USE_GPU != 0
+    DMA2D_Config();
+    disp_drv.gpu_blend_cb = gpu_mem_blend;
+    disp_drv.gpu_fill_cb = gpu_mem_fill;
+  #endif
+  }
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
+
+/**
+ * LVGL Log print callback
+ * @param level log message level
+ * @param buf string to print 
+ */
+#if LV_USE_LOG != 0
+static void lv_log_print_g_cb(lv_log_level_t level, const char * buf)
+{
+  LV_UNUSED(level);
+  LV_UNUSED(buf);
+}
+#endif
 
 /**
  * Flush a color buffer
@@ -109,7 +131,7 @@ void tft_init(void)
  * @param y2 bottom coordinate of the rectangle
  * @param color_p pointer to an array of colors
  */
-static void tft_flush(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_p)
+static void tft_flush(lv_display_t * disp, const lv_area_t * area, uint8_t * px_map)
 {
   /*Return if the area is out the screen*/
   if (area->x2 < 0)
@@ -132,7 +154,7 @@ static void tft_flush(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *col
   x2_flush = act_x2;
   y2_fill = act_y2;
   y_fill_act = act_y1;
-  buf_to_flush = color_p;
+  buf_to_flush = px_map;
 
   /*##-7- Start the DMA transfer using the interrupt mode #*/
   /* Configure the source, destination and buffer size DMA fields and Start DMA Stream transfer */
@@ -197,7 +219,7 @@ static void DMA_TransferComplete(DMA_HandleTypeDef *han)
 
   if (y_fill_act > y2_fill)
   {
-    lv_disp_flush_ready(&disp_drv);
+    lv_disp_flush_ready(lvDisplay);
   }
   else
   {
