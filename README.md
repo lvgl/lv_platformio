@@ -6,7 +6,7 @@ This demo should help you to organize your project with awesome PlatformIO IDE.
 
 1. It automates installing everything - just open folder with this project in
    [vscode](https://code.visualstudio.com/), and agree to install all it offers.
-2. It contains working LittlevGL demo, runnable on both are metal and PC.
+2. It contains working LVGL demo, runnable on both bare metal and PC.
 3. It has example, how to configure PlatomIO.
 
 
