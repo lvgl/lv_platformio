@@ -14,6 +14,21 @@
 
 #include "demos/lv_demos.h"
 
+#ifdef ARDUINO
+#include <Arduino.h>
+
+void setup() {
+  lv_init();
+  hal_setup();
+  lv_demo_widgets();
+}
+
+void loop() {
+  hal_loop(); // -< do not use while loop in this function
+}
+
+#else
+
 int main(void)
 {
 	lv_init();
@@ -24,3 +39,5 @@ int main(void)
 
 	hal_loop();
 }
+
+#endif
