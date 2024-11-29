@@ -7,9 +7,16 @@ extern "C" {
 
 
 /**
- * Add some description please
+ * This function runs once and typically includes:
+ * - Setting up display drivers.
+ * - Configuring LVGL display and input.=
  */
 void hal_setup(void);
+
+/**
+ * This function is continuously executed and typically includes:
+ * - Updating LVGL's internal state & UI.
+ */
 void hal_loop(void);
 
 
