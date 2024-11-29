@@ -6,6 +6,9 @@ extern "C" {
 #endif
 
 
+/**
+ * Add some description please
+ */
 void hal_setup(void);
 void hal_loop(void);
 
