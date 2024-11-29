@@ -14,4 +14,4 @@ void hal_loop(void);
 } /* extern "C" */
 #endif
 
-#endif /*DRIVER_H*/
+#endif /*APP_HAL_H*/
