@@ -24,7 +24,7 @@ void setup() {
 }
 
 void loop() {
-  hal_loop(); // -< do not use while loop in this function
+  hal_loop();  /* Do not use while loop in this function */
 }
 
 #else
