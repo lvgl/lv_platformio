@@ -40,4 +40,4 @@ int main(void)
 	hal_loop();
 }
 
-#endif
+#endif /*ARDUINO*/
