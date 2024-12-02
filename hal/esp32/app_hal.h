@@ -9,7 +9,7 @@ extern "C" {
 /**
  * This function runs once and typically includes:
  * - Setting up display drivers.
- * - Configuring LVGL display and input.=
+ * - Configuring LVGL display and input devices
  */
 void hal_setup(void);
 
