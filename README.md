@@ -76,6 +76,26 @@ pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
 Add the path to your Mingw-w64 `bin` folder to the Windows PATH environment
 variable (usually `C:\msys64\mingw64\bin`). See [instruction, 4](https://code.visualstudio.com/docs/cpp/config-mingw#_prerequisites).
 
+**ESP32**
+
+This project uses the Arduino framework and the LovyanGFX library for display drivers.
+
+#### For Existing Display Configurations
+1. Ensure the selected display configuration matches your hardware.
+2. Open the `hal/esp32/app_hal.cpp` file.  
+   - Include the appropriate `.hpp` file for your display.  
+   - Ensure only **one** display configuration is uncommented at a time.
+3. Verify that the `platformio.ini` file matches the board settings.  
+   - Recommended settings can be found in the corresponding `.hpp` file.
+
+
+#### Adding New Display Configurations
+1. Create a new file under `hal/esp32/displays/`.  
+   - Name it `lgfx_{board_name}.hpp`, replacing `{board_name}` with your board's name.
+2. Add the new `.hpp` file to the `hal/esp32/app_hal.cpp` file and ensure it's included correctly.
+3. In the newly created `.hpp` file, include the recommended board configuration for reference.
+
+Make sure to test your setup to confirm compatibility.
 
 ### Install flasher drivers (optional)
 

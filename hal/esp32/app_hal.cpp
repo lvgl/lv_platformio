@@ -1,14 +1,15 @@
 
 #include "app_hal.h"
 #include "lvgl.h"
-#include "PanelLan.h"
 
 
-/* Set the board type. (Uses LovyanGFX internally to manage display drivers) */
-PanelLan tft(BOARD_SC01_PLUS);
+/* include only one display settings */
+// #include "displays/lgfx_wt32sc01_plus.hpp"
+#include "displays/lgfx_elecrow_3_5.hpp"
 
-static const uint32_t screenWidth = 480;
-static const uint32_t screenHeight = 320;
+
+static const uint32_t screenWidth = WIDTH;
+static const uint32_t screenHeight = HEIGHT;
 
 const unsigned int lvBufferSize = screenWidth * 30;
 uint8_t lvBuffer[2][lvBufferSize];
@@ -74,7 +75,7 @@ void hal_setup(void)
   tft.fillScreen(TFT_BLACK);
 
   /* Set display rotation to landscape */
-  tft.setRotation(1);
+  // tft.setRotation(1);
 
   /* Set the tick callback */
   lv_tick_set_cb(my_tick);
