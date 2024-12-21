@@ -16,7 +16,7 @@ AlwaysBuild(env.Alias("upload", exec_name, exec_name))
 env.AddTarget(
     name = "execute",
     dependencies = exec_name,
-    actions = exec_name,
+    actions = '"{}"'.format(exec_name),
     title = "Execute",
     description = "Build and execute",
     group="General"
