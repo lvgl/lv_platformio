@@ -17,7 +17,18 @@ if sys.platform.startswith("darwin"):
         env.Append(
             LIBPATH=os.path.dirname(sdl_lib[0])
         )
-    
+
+elif sys.platform.startswith("win"):
+    msys_root = "C:\\msys64\\mingw64"
+    sdl_include = os.path.join(msys_root, "include")
+    sdl_lib = os.path.join(msys_root, "lib")
+    if os.path.exists(sdl_include):
+        print(f"Found MSYS2 SDL include path: {sdl_include}")
+        env.Append(CPPPATH=[sdl_include])
+    libSDL = os.path.join(sdl_lib, "libSDL2.a")
+    if os.path.exists(libSDL):
+        print(f"Found MSYS2 SDL lib path: {libSDL}")
+        env.Append(LIBPATH=[sdl_lib], LIBS=["SDL2"])    
     
 #breakpoint()
     
